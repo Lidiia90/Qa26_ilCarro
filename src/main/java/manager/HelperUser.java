@@ -7,17 +7,18 @@ public class HelperUser extends HelperBase {
     public HelperUser(WebDriver wd){
         super(wd);
     }
-    public void openLoginRegistrationForm(){
+    public void openLoginForm(){
         click(By.cssSelector("a[href='/login?url=%2Fsearch']"));
     }
 
-    public void fillLoginRegistrationForm(String email, String password){
+    public void fillLoginForm(String email, String password){
 type(By.id("email"), email);
 type(By.id("password"), password);
     }
 
-    public void submitLogin(){
-        click(By.xpath("//button[contains(text(),'Y’alla!')]"));
+    public void submitLogin() {
+        click(By.cssSelector("button[type='submit']"));
+
     }
     public void pressButton() {
         click(By.xpath("//button[normalize-space()='Ok']"));

@@ -15,8 +15,8 @@ public class LoginTests extends TestBase{
 
 @Test
         public void loginSuccess() {
-    app.getHelperUser().openLoginRegistrationForm();
-    app.getHelperUser().fillLoginRegistrationForm("liza24@gmail.com", "liT45#kit");
+    app.getHelperUser().openLoginForm();
+    app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
     app.getHelperUser().submitLogin();
     app.getHelperUser().pressButton();
 
@@ -24,8 +24,8 @@ public class LoginTests extends TestBase{
         }
         @Test
     public void loginSuccessModel() {
-        app.getHelperUser().openLoginRegistrationForm();
-        app.getHelperUser().fillLoginRegistrationForm("liza24@gmail.com", "liT45#kit");
+        app.getHelperUser().openLoginForm();
+        app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
         app.getHelperUser().submitLogin();
             app.getHelperUser().pressButton();
             app.getHelperUser().logOut();
