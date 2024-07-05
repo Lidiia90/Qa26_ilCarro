@@ -18,16 +18,18 @@ public class LoginTests extends TestBase{
     app.getHelperUser().openLoginForm();
     app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
     app.getHelperUser().submitLogin();
-    app.getHelperUser().pressButton();
+    app.getHelperUser().pressOkButton();
 
-            Assert.assertTrue(app.getHelperUser().isLogged());
+    Assert.assertTrue(app.getHelperUser().isLogged());
+    //Assert --> if element with text "Logged in success" is present
         }
+
         @Test
     public void loginSuccessModel() {
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
         app.getHelperUser().submitLogin();
-            app.getHelperUser().pressButton();
+            app.getHelperUser().pressOkButton();
             app.getHelperUser().logOut();
 
     }

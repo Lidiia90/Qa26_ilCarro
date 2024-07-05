@@ -10,6 +10,8 @@ public class HelperUser extends HelperBase {
     public void openLoginForm(){
         click(By.cssSelector("a[href='/login?url=%2Fsearch']"));
     }
+    //public void openLoginForm(){
+    //click(By.xpath("//*[text()='Log in']"));
 
     public void fillLoginForm(String email, String password){
 type(By.id("email"), email);
@@ -20,7 +22,7 @@ type(By.id("password"), password);
         click(By.cssSelector("button[type='submit']"));
 
     }
-    public void pressButton() {
+    public void pressOkButton() {
         click(By.xpath("//button[normalize-space()='Ok']"));
 
     }
