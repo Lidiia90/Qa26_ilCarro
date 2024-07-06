@@ -1,6 +1,7 @@
 package tests;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -9,7 +10,7 @@ public class LoginTests extends TestBase{
     @BeforeMethod
     public void preCondition() {
         if (app.getHelperUser().isLogged()) {
-            app.getHelperUser().logOut();
+            app.getHelperUser().logout();
         }
     }
 
@@ -18,9 +19,10 @@ public class LoginTests extends TestBase{
     app.getHelperUser().openLoginForm();
     app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
     app.getHelperUser().submitLogin();
-    app.getHelperUser().pressOkButton();
 
-    Assert.assertTrue(app.getHelperUser().isLogged());
+    Assert.assertEquals(app.getHelperUser().getMessage(),"Logged in success");
+    //app.getHelperUser().clickOkButton();
+
     //Assert --> if element with text "Logged in success" is present
         }
 
@@ -29,8 +31,13 @@ public class LoginTests extends TestBase{
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
         app.getHelperUser().submitLogin();
-            app.getHelperUser().pressOkButton();
-            app.getHelperUser().logOut();
 
+        Assert.assertEquals(app.getHelperUser().getMessage(),"Logged in success");
+      //  app.getHelperUser().clickOkButton();
     }
-}
+    @AfterMethod
+    public void postCondition(){
+        app.getHelperUser().clickOkButton();
+    }
+    }
+
