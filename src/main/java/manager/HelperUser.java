@@ -26,7 +26,7 @@ type(By.id("password"), password);
         click(By.xpath("//button[text()='Ok']"));
     }
     public String getMessage() {
-        pause(1000);
+        pause(2000);
         return wd.findElement(By.cssSelector(".dialog-container>h2")).getText();
     }
 
@@ -52,5 +52,9 @@ type(By.id("password"), password);
     public void openSignupForm(){
         click(By.xpath("//*[text()=' Sign up ']"));
     }
+
+    public boolean isOkButtonPresent(){
+        return isElementPresent(By.xpath("//button[text()='Ok']"));
     }
+}
 
