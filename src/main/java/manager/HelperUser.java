@@ -1,11 +1,10 @@
 package manager;
 
-import org.openqa.selenium.Alert;
+import models.User;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HelperUser extends HelperBase {
     public HelperUser(WebDriver wd){
@@ -18,7 +17,14 @@ public class HelperUser extends HelperBase {
 type(By.id("email"), email);
 type(By.id("password"), password);
     }
-    public void submitLogin() {
+
+    //overloading
+    public void fillLoginForm(User user){
+        type(By.id("email"), user.getEmail());
+        type(By.id("password"), user.getPassword());
+    }
+
+    public void submit() {
         click(By.xpath("//*[@type='submit']"));
     }
     public void clickOkButton() {
@@ -45,6 +51,12 @@ type(By.id("password"), password);
         String disabledAttribute = submitButton.getAttribute("disabled");
         return disabledAttribute != null;
     }
+    //public boolean isYallaButtonNotActive(){
+    // boolean res = isElementPresent(By.cssSelector("button[disabled]"));
+    // WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
+    // boolean result = element.isEnabled();
+    //return res && !result;
+
     public boolean isPasswordClassInvalid() {
         return wd.findElement(By.id("password")).getAttribute("class").contains("ng-invalid");
     }
@@ -55,6 +67,32 @@ type(By.id("password"), password);
 
     public boolean isOkButtonPresent(){
         return isElementPresent(By.xpath("//button[text()='Ok']"));
+
+        //public void clickOkButton(){
+        // if (isElementPresent(By.xpath("//button[text()='Ok']"))){
+        // click(By.xpath("//button[text()='Ok']"));
+    }
+//**************Regiastration***********
+    public void openRegistrationForm() {
+        click(By.xpath("//*[text()=' Sign up ']"));
+    }
+
+    public void fillRegistrationForm(User user) {
+        type(By.id("name"), user.getName());
+        type(By.id("lastName"), user.getLastName());
+        type(By.id("email"), user.getEmail());
+        type(By.id("password"),user.getPassword());
+    }
+
+    public void checkPolicy() {
+//click(By.id("terms-of-use")); 0*0
+
+        //variant2
+        //click(By.cssSelector("label[for='terms-of-use']"));
+
+        //variant3
+        JavascriptExecutor js = (JavascriptExecutor) wd;
+        js.executeScript("document.querySelector('#terms-of-use').click()");
     }
 }
 

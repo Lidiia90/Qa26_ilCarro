@@ -1,5 +1,6 @@
 package tests;
 
+import models.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,7 +19,7 @@ public class LoginTests extends TestBase {
     public void loginSuccess() {
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
-        app.getHelperUser().submitLogin();
+        app.getHelperUser().submit();
 
         Assert.assertEquals(app.getHelperUser().getMessage(), "Logged in success");
         //app.getHelperUser().clickOkButton();
@@ -26,10 +27,25 @@ public class LoginTests extends TestBase {
     }
 
     @Test
+    public void loginSuccess1() {
+        User user = new User().withEmail("liza24@gmail.com").withPassword("liT45#kit");
+
+        //user.setEmail("liza24@gmail.com");
+        //user.setPassword("liT45#kit");
+
+        app.getHelperUser().openLoginForm();
+        app.getHelperUser().fillLoginForm(user);
+        app.getHelperUser().submit();
+
+        Assert.assertEquals(app.getHelperUser().getMessage(), "Logged in success");
+        //app.getHelperUser().clickOkButton();
+        //Assert --> if element with text "Logged in success" is present
+    }
+    @Test
     public void loginSuccessModel() {
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
-        app.getHelperUser().submitLogin();
+        app.getHelperUser().submit();
 
         Assert.assertEquals(app.getHelperUser().getMessage(), "Logged in success");
         //  app.getHelperUser().clickOkButton();
@@ -48,7 +64,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().openSignupForm();
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail", "liT45#kit");
-        app.getHelperUser().submitLogin();
+        app.getHelperUser().submit();
         Assert.assertEquals(app.getHelperUser().getMessage(), "\"Login or Password incorrect\"");
       //  app.getHelperUser().clickOkButton();
     }
@@ -58,13 +74,13 @@ public class LoginTests extends TestBase {
         app.getHelperUser().openSignupForm();
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "likit");
-        app.getHelperUser().submitLogin();
+        app.getHelperUser().submit();
         Assert.assertEquals(app.getHelperUser().getMessage(), "\"Login or Password incorrect\"");
        // app.getHelperUser().clickOkButton();
     }
 
     @Test
-    public void loginWrongPassword1() {
+    public void loginEmptyPassword() {
         app.getHelperUser().openSignupForm();
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("liza24@gmail.com", "");
@@ -77,7 +93,7 @@ public class LoginTests extends TestBase {
         app.getHelperUser().openSignupForm();
         app.getHelperUser().openLoginForm();
         app.getHelperUser().fillLoginForm("lida24@gmail.com", "daT45#li");
-        app.getHelperUser().submitLogin();
+        app.getHelperUser().submit();
         Assert.assertEquals(app.getHelperUser().getMessage(), "\"Login or Password incorrect\"");
         //app.getHelperUser().clickOkButton();
 
