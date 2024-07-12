@@ -1,10 +1,10 @@
 package manager;
 
 import models.User;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+
+import javax.swing.*;
 
 public class HelperUser extends HelperBase {
     public HelperUser(WebDriver wd){
@@ -93,6 +93,20 @@ type(By.id("password"), password);
         //variant3
         JavascriptExecutor js = (JavascriptExecutor) wd;
         js.executeScript("document.querySelector('#terms-of-use').click()");
+    }
+    public void checkPolicyXY(){
+        WebElement label = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+        Rectangle rect = label.getRect();
+        int w = rect.getWidth();
+
+        //Dimension size = wd.manage().window().getSize();
+
+        int xOffSet = -w/2;
+
+        Actions actions = new Actions(wd);
+        actions.moveToElement(label, xOffSet, 0).click().release().perform();
+
+
     }
 }
 
