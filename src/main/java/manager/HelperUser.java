@@ -3,23 +3,26 @@ package manager;
 import models.User;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.swing.*;
 
 public class HelperUser extends HelperBase {
-    public HelperUser(WebDriver wd){
+    public HelperUser(WebDriver wd) {
         super(wd);
     }
-    public void openLoginForm(){
+
+    public void openLoginForm() {
         click(By.xpath("//*[text()=' Log in ']"));
     }
-    public void fillLoginForm(String email, String password){
-type(By.id("email"), email);
-type(By.id("password"), password);
+
+    public void fillLoginForm(String email, String password) {
+        type(By.id("email"), email);
+        type(By.id("password"), password);
     }
 
     //overloading
-    public void fillLoginForm(User user){
+    public void fillLoginForm(User user) {
         type(By.id("email"), user.getEmail());
         type(By.id("password"), user.getPassword());
     }
@@ -27,61 +30,69 @@ type(By.id("password"), password);
     public void submit() {
         click(By.xpath("//*[@type='submit']"));
     }
+
     public void clickOkButton() {
         pause(1000);
         click(By.xpath("//button[text()='Ok']"));
     }
+
     public String getMessage() {
-        pause(2000);
+        pause(5000);
         return wd.findElement(By.cssSelector(".dialog-container>h2")).getText();
     }
 
-    public boolean isLogged(){
+    public boolean isLogged() {
         return isElementPresent(By.xpath("//*[text()=' Logout ']"));
     }
-    public void logout(){
+
+    public void logout() {
         click(By.xpath("//*[text()=' Logout ']"));
     }
 
     public boolean isEmailClassInvalid() {
         return wd.findElement(By.id("email")).getAttribute("class").contains("ng-invalid");
     }
+
     public boolean isSubmitLoginInvalid() {
         WebElement submitButton = wd.findElement(By.xpath("//*[@type='submit']"));
         String disabledAttribute = submitButton.getAttribute("disabled");
         return disabledAttribute != null;
     }
-    //public boolean isYallaButtonNotActive(){
-    // boolean res = isElementPresent(By.cssSelector("button[disabled]"));
-    // WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
-    // boolean result = element.isEnabled();
-    //return res && !result;
+
+//    public boolean isYallaButtonNotActive() {
+//        boolean res = isElementPresent(By.cssSelector("button[disabled]"));
+//        WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
+//        boolean result = element.isEnabled();
+//        return res && !result;
+//    }
 
     public boolean isPasswordClassInvalid() {
         return wd.findElement(By.id("password")).getAttribute("class").contains("ng-invalid");
     }
 
-    public void openSignupForm(){
+    public void openSignupForm() {
         click(By.xpath("//*[text()=' Sign up ']"));
     }
 
-    public boolean isOkButtonPresent(){
+    public boolean isOkButtonPresent() {
         return isElementPresent(By.xpath("//button[text()='Ok']"));
 
         //public void clickOkButton(){
         // if (isElementPresent(By.xpath("//button[text()='Ok']"))){
         // click(By.xpath("//button[text()='Ok']"));
     }
-//**************Regiastration***********
+
+    //**************Registration***********
     public void openRegistrationForm() {
         click(By.xpath("//*[text()=' Sign up ']"));
     }
 
     public void fillRegistrationForm(User user) {
         type(By.id("name"), user.getName());
+        pause(3000);
         type(By.id("lastName"), user.getLastName());
         type(By.id("email"), user.getEmail());
-        type(By.id("password"),user.getPassword());
+        type(By.id("password"), user.getPassword());
     }
 
     public void checkPolicy() {
@@ -94,19 +105,17 @@ type(By.id("password"), password);
         JavascriptExecutor js = (JavascriptExecutor) wd;
         js.executeScript("document.querySelector('#terms-of-use').click()");
     }
-    public void checkPolicyXY(){
+
+    public void checkPolicyXY() {
         WebElement label = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
         Rectangle rect = label.getRect();
         int w = rect.getWidth();
-
         //Dimension size = wd.manage().window().getSize();
-
-        int xOffSet = -w/2;
-
+        int xOffSet = -w / 2;
         Actions actions = new Actions(wd);
         actions.moveToElement(label, xOffSet, 0).click().release().perform();
-
-
     }
-}
+    }
+
+
 
