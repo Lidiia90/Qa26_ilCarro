@@ -27,18 +27,9 @@ public class HelperUser extends HelperBase {
         type(By.id("password"), user.getPassword());
     }
 
-    public void submit() {
-        click(By.xpath("//*[@type='submit']"));
-    }
-
     public void clickOkButton() {
         pause(1000);
         click(By.xpath("//button[text()='Ok']"));
-    }
-
-    public String getMessage() {
-        pause(5000);
-        return wd.findElement(By.cssSelector(".dialog-container>h2")).getText();
     }
 
     public boolean isLogged() {
@@ -59,12 +50,12 @@ public class HelperUser extends HelperBase {
         return disabledAttribute != null;
     }
 
-//    public boolean isYallaButtonNotActive() {
-//        boolean res = isElementPresent(By.cssSelector("button[disabled]"));
-//        WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
-//        boolean result = element.isEnabled();
-//        return res && !result;
-//    }
+    public boolean isYallaButtonNotActive() {
+        boolean res = isElementPresent(By.cssSelector("button[disabled]"));
+        WebElement element = wd.findElement(By.cssSelector("button[type='submit']"));
+        boolean result = element.isEnabled();
+        return res && !result;
+    }
 
     public boolean isPasswordClassInvalid() {
         return wd.findElement(By.id("password")).getAttribute("class").contains("ng-invalid");
@@ -107,15 +98,24 @@ public class HelperUser extends HelperBase {
     }
 
     public void checkPolicyXY() {
-        WebElement label = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
-        Rectangle rect = label.getRect();
-        int w = rect.getWidth();
-        //Dimension size = wd.manage().window().getSize();
-        int xOffSet = -w / 2;
-        Actions actions = new Actions(wd);
-        actions.moveToElement(label, xOffSet, 0).click().release().perform();
+        if (!wd.findElement(By.id("terms-of-use")).isSelected()) {
+            WebElement label = wd.findElement(By.cssSelector("label[for='terms-of-use']"));
+            Rectangle rect = label.getRect();
+            int w = rect.getWidth();
+            //Dimension size = wd.manage().window().getSize();
+            int xOffSet = -w / 2;
+            Actions actions = new Actions(wd);
+            actions.moveToElement(label, xOffSet, 0).click().release().perform();
+        }
     }
+
+    public void login(User user) {
+        openLoginForm();
+        fillLoginForm(user);
+        submit();
+        clickOkButton();
     }
+}
 
 
 
