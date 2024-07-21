@@ -27,7 +27,7 @@ public class HelperBase {
         element.clear();
         clearNew(element);
         if (text != null) {
-            element.sendKeys(text);
+        element.sendKeys(text);
         }
     }
 
@@ -37,7 +37,6 @@ public class HelperBase {
     }
 
     public void clearTextField(By locator){
-        this.locator = locator;
         WebElement element = wd.findElement(locator);
         String os = System.getProperty("os.name");
         if (os.startsWith("Win")){

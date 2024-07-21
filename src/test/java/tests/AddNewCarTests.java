@@ -37,6 +37,7 @@ public class AddNewCarTests extends TestBase{
 
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
+        app.getHelperCar().attachPhoto("/Users/lidashpektorovska/GitHub/Qa26_ilCarro/Cross7.jpg");
         app.getHelperCar().submit();
 
         Assert.assertTrue(app.getHelperUser().getMessage().contains("added successful"));
