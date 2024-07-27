@@ -4,6 +4,7 @@ import models.Car;
 import models.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -11,10 +12,11 @@ import java.util.Random;
 
 public class AddNewCarTests extends TestBase{
 
-        @BeforeMethod
+        @BeforeClass
                 public void preCondition(){
             if(!app.getHelperUser().isLogged()){
                 app.getHelperUser().login(new User().withEmail("liza24@gmail.com").withPassword("liT45#kit"));
+                logger.info("Logout complete");
             }
         }
 
@@ -34,9 +36,11 @@ public class AddNewCarTests extends TestBase{
                 .price(50)
                 .about("Nice car")
                 .build();
+        logger.info("Test start with test data --->" + car.toString());
 
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
+        app.getHelperCar().getScreen("src/test/screenshots/screen.png");
         app.getHelperCar().attachPhoto("/Users/lidashpektorovska/GitHub/Qa26_ilCarro/Cross7.jpg");
         app.getHelperCar().submit();
 
@@ -60,6 +64,7 @@ public class AddNewCarTests extends TestBase{
                 .price(50)
                 .about("Nice car")
                 .build();
+        logger.info("Test start with test data --->" + car.toString());
 
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
