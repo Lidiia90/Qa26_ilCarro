@@ -19,9 +19,11 @@ public class HelperBase {
     }
 
     public void click(By locator) {
+       pause(1000);
         wd.findElement(locator).click();
-        // WebElement element = wd.findElement(locator);
-        //element.click();
+
+//        WebElement element = wd.findElement(locator);
+//        element.click();
     }
 
     public void type(By locator, String text) {
@@ -56,6 +58,7 @@ public class HelperBase {
     }
 
     public void submit() {
+        pause(1000);
         click(By.xpath("//*[@type='submit']"));
     }
 
