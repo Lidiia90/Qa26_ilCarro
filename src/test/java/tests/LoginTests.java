@@ -1,5 +1,6 @@
 package tests;
 
+import manager.DataProviderUser;
 import models.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -12,14 +13,16 @@ public class LoginTests extends TestBase {
     public void preCondition() {
         if (app.getHelperUser().isLogged()) {
             app.getHelperUser().logout();
+            logger.info("Before method logout finish ");
         }
     }
 
-    @Test
-    public void loginSuccess() {
-        logger.info("Test start with test data --->" + " email : 'liza24@gmail.com' & password : 'liT45#kit'");
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUser.class)
+    public void loginSuccess(String email, String password) {
+        logger.info("Start test with name 'loginSuccess'");
+        logger.info("Test data ---> email: " + email + "& password: " + password);
         app.getHelperUser().openLoginForm();
-        app.getHelperUser().fillLoginForm("liza24@gmail.com", "liT45#kit");
+        app.getHelperUser().fillLoginForm(email, password);
         app.getHelperUser().submit();
 
         Assert.assertEquals(app.getHelperUser().getMessage(), "Logged in success");
@@ -27,16 +30,17 @@ public class LoginTests extends TestBase {
         //Assert --> if element with text "Logged in success" is present
     }
 
-    @Test
-    public void loginSuccess1() {
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUser.class)
+    public void loginSuccess1(String email, String password) {
         User user = new User().withEmail("liza24@gmail.com").withPassword("liT45#kit");
-        logger.info("Test start with test data --->" + " email : 'liza24@gmail.com' & password : 'liT45#kit'");
+        logger.info("Start test with name 'loginSuccess'");
+        logger.info("Test data ---> email: " + email + "& password: " + password);
 
         //user.setEmail("liza24@gmail.com");
         //user.setPassword("liT45#kit");
 
         app.getHelperUser().openLoginForm();
-        app.getHelperUser().fillLoginForm(user);
+        app.getHelperUser().fillLoginForm(email, password);
         app.getHelperUser().submit();
 
         Assert.assertEquals(app.getHelperUser().getMessage(), "Logged in success");
