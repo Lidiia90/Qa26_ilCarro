@@ -120,6 +120,27 @@ click(By.cssSelector("div.pac-item"));
             click(By.cssSelector("button[aria-label='Next month']"));
         }
     }
+    public void searchAnyPeriod(String city, String dateFrom, String dateTo) {
+        typeCity(city);
+        click(By.id("dates"));
+
+        LocalDate now = LocalDate.now();
+        LocalDate from = LocalDate.parse(dateFrom,DateTimeFormatter.ofPattern("M/d/yyyy"));
+        LocalDate to = LocalDate.parse(dateTo,DateTimeFormatter.ofPattern("M/d/yyyy"));
+
+        int diffYear;
+        int diffMonth;
+        diffYear = from.getYear()-now.getYear();
+        if (diffYear==0){
+            diffMonth = from.getMonthValue()-now.getMonthValue();
+        }else {
+            diffMonth = 12 - now.getMonthValue() + from.getMonthValue();
+        }
+        clickNextMonthBtn(diffMonth);
+        String locator = String.format("//div[text()=' %s ']", from.getDayOfMonth());
+        click(By.xpath(locator));
     }
+
+}
 
 

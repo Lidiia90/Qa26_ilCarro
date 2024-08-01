@@ -20,10 +20,10 @@ public class SearchCarTests extends TestBase {
         Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
 
     }
-//     @Test
-//    public void searchAnyPeriodSuccess(){
-//app.getHelperCar().searchAnyPeriod("Rehovot", "9/26/2024", "3/8/2025");
-//         app.getHelperCar().submit();
-//         Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
-//     }
+     @Test
+    public void searchAnyPeriodSuccess(){
+app.getHelperCar().searchAnyPeriod("Rehovot", "9/26/2024", "3/8/2025");
+         app.getHelperCar().submit();
+         Assert.assertTrue(app.getHelperCar().isListOfCarsAppeared());
+     }
 }
