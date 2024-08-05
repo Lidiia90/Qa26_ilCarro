@@ -1,4 +1,4 @@
-package manager;
+package dataproviders;
 
 import models.User;
 import org.testng.annotations.DataProvider;

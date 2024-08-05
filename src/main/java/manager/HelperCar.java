@@ -8,8 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class HelperCar extends HelperBase {
 
@@ -24,6 +26,7 @@ public class HelperCar extends HelperBase {
 
     //parsing
     public void fillCarForm(Car car) {
+      //  int i  = new Random().nextInt(1000)+1000;
         typeLocation(car.getLocation());
         type(By.id("make"), car.getManufacture());
         type(By.id("model"), car.getModel());
@@ -52,11 +55,13 @@ public class HelperCar extends HelperBase {
     }
 
     public void returnToHomePage() {
+        pause(1000);
         click(By.xpath("//button[text()='Search cars']"));
     }
 
     public void attachPhoto(String link) {
-        wd.findElement(By.cssSelector("#photos")).sendKeys(link);
+        String absolutePath = new File(link).getAbsolutePath();
+        wd.findElement(By.cssSelector("#photos")).sendKeys(absolutePath);
     }
 
     public void searchCurrentMonth(String city, String dateFrom, String dateTo) {

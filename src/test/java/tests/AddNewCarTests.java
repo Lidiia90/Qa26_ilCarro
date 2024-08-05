@@ -1,5 +1,6 @@
 package tests;
 
+import dataproviders.DataProviderCars;
 import models.Car;
 import models.User;
 import org.testng.Assert;
@@ -20,29 +21,46 @@ public class AddNewCarTests extends TestBase{
             }
         }
 
-    @Test
-    public void AddNewCarSuccess(){
-        int i  = new Random().nextInt(1000)+1000;
+    @Test(dataProvider = "CarSuccess", dataProviderClass = DataProviderCars.class)
+    public void AddNewCarSuccess(Car car){
+//        //int i  = new Random().nextInt(1000)+1000;
+//        Car car = Car.builder()
+//                .location("Tel Aviv, Israel")
+//                .manufacture("Mazda")
+//                .model("M3")
+//                .year("2022")
+//                .fuel("Petrol")
+//                .seats(4)
+//                .carClass("C")
+//                .carRegNumber("678-900-6" + i)
+//                .price(50)
+//                .about("Nice car")
+//                .build();
 
-        Car car = Car.builder()
-                .location("Tel Aviv, Israel")
-                .manufacture("Mazda")
-                .model("M3")
-                .year("2022")
-                .fuel("Petrol")
-                .seats(4)
-                .carClass("C")
-                .carRegNumber("678-900-6" + i)
-                .price(50)
-                .about("Nice car")
-                .build();
         logger.info("Test start with test data --->" + car.toString());
 
         app.getHelperCar().openCarForm();
         app.getHelperCar().fillCarForm(car);
         app.getHelperCar().getScreen("src/test/screenshots/screen.png");
-        app.getHelperCar().attachPhoto("/Users/lidashpektorovska/GitHub/Qa26_ilCarro/Cross7.jpg");
+        //app.getHelperCar().attachPhoto("/Users/lidashpektorovska/GitHub/Qa26_ilCarro/Cross7.jpg");
         app.getHelperCar().submit();
+
+        Assert.assertTrue(app.getHelperUser().getMessage().contains("added successful"));
+        Assert.assertEquals(app.getHelperCar().getMessage(),car.getManufacture()+" "+car.getModel()+" added successful");
+    }
+
+    @Test(dataProvider = "carCSV", dataProviderClass = DataProviderCars.class)
+    public void AddNewCarSuccess1(Car car){
+
+        logger.info("Test start with test data --->" + car.toString());
+
+        app.getHelperCar().openCarForm();
+        app.getHelperCar().fillCarForm(car);
+        app.getHelperCar().attachPhoto(car.getPhotoLink());
+        //app.getHelperCar().getScreen("src/test/screenshots/screen.png");
+        //app.getHelperCar().attachPhoto("/Users/lidashpektorovska/GitHub/Qa26_ilCarro/Cross7.jpg");
+        app.getHelperCar().submit();
+        app.getHelperCar().pause(1000);
 
         Assert.assertTrue(app.getHelperUser().getMessage().contains("added successful"));
         Assert.assertEquals(app.getHelperCar().getMessage(),car.getManufacture()+" "+car.getModel()+" added successful");

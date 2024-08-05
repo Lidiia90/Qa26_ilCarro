@@ -19,7 +19,7 @@ public class HelperBase {
     }
 
     public void click(By locator) {
-       pause(1000);
+       pause(3000);
         wd.findElement(locator).click();
 
 //        WebElement element = wd.findElement(locator);
